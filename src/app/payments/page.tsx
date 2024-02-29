@@ -1,151 +1,24 @@
-// Import necessary hooks and components
 import React, { useState, useEffect } from 'react';
-import { Payment, columns } from "./columns"; // Adjust the import path as necessary
-import { DataTable } from "./data-table"; 
-// Adjust the import path as necessary
-
-async function getData(): Promise<Payment[]> {
-  // Your existing data fetching logic
-  return [
-    {
-        id: "728ed52f",
-        amount: 100,
-        status: "pending",
-        email: "m@example.com",
-      },
-      {
-        id: "489e1d42",
-        amount: 125,
-        status: "processing",
-        email: "example@gmail.com",
-      },
-      {
-        id: "489e1d42",
-        amount: 125,
-        status: "processing",
-        email: "example@gmail.com",
-      },
-      {
-        id: "489e1d42",
-        amount: 125,
-        status: "processing",
-        email: "example@gmail.com",
-      },
-      {
-        id: "489e1d42",
-        amount: 125,
-        status: "processing",
-        email: "example@gmail.com",
-      },
-      {
-        id: "489e1d42",
-        amount: 125,
-        status: "processing",
-        email: "example@gmail.com",
-      },
-      {
-        id: "489e1d42",
-        amount: 125,
-        status: "processing",
-        email: "example@gmail.com",
-      },
-      {
-        id: "489e1d42",
-        amount: 125,
-        status: "processing",
-        email: "example@gmail.com",
-      },
-      {
-        id: "489e1d42",
-        amount: 125,
-        status: "processing",
-        email: "example@gmail.com",
-      },
-      {
-        id: "489e1d42",
-        amount: 125,
-        status: "processing",
-        email: "example@gmail.com",
-      },
-      {
-        id: "728ed52f",
-        amount: 100,
-        status: "pending",
-        email: "m@example.com",
-      },
-      {
-        id: "489e1d42",
-        amount: 125,
-        status: "processing",
-        email: "example@gmail.com",
-      },
-      {
-        id: "489e1d42",
-        amount: 125,
-        status: "processing",
-        email: "example@gmail.com",
-      },
-      {
-        id: "489e1d42",
-        amount: 125,
-        status: "processing",
-        email: "example@gmail.com",
-      },
-      {
-        id: "489e1d42",
-        amount: 125,
-        status: "processing",
-        email: "example@gmail.com",
-      },
-      {
-        id: "489e1d42",
-        amount: 125,
-        status: "processing",
-        email: "example@gmail.com",
-      },
-      {
-        id: "489e1d42",
-        amount: 125,
-        status: "processing",
-        email: "example@gmail.com",
-      },
-      {
-        id: "489e1d42",
-        amount: 125,
-        status: "processing",
-        email: "example@gmail.com",
-      },
-      {
-        id: "489e1d42",
-        amount: 125,
-        status: "processing",
-        email: "example@gmail.com",
-      },
-      {
-        id: "7373gh",
-        amount: 125,
-        status: "processing",
-        email: "fouk@gmail.com",
-      }
-    // Your data
-  ];
-}
+import { columns, User } from "./columns";
+import { DataTable } from "./data-table";
 
 function DemoPage() {
-  const [data, setData] = useState<Payment[]>([]);
+  const [users, setUsers] = useState<User[]>([]); // Initialize state to hold your users
 
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await getData();
-      setData(result);
+    // Define an async function inside the effect to fetch user data
+    const fetchUsers = async () => {
+      const response = await fetch('https://dummyjson.com/users'); // Fetch data from the API
+      const json = await response.json(); // Parse JSON response body
+      setUsers(json.users); // Update state with the users
     };
 
-    fetchData().catch(console.error);
-  }, []);
+    fetchUsers().catch(console.error); // Call the function and catch any errors
+  }, []); // Empty dependency array means this effect will only run once on mount
 
   return (
     <div className="container mx-auto py-10">
-      <DataTable columns={columns} data={data} />
+      <DataTable columns={columns} data={users} /> {/* Pass the fetched users to your DataTable */}
     </div>
   );
 }

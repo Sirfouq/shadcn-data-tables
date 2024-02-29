@@ -1,5 +1,5 @@
 "use client"
-
+import { DataTablePagination } from './pagination';
 import { Button } from "@/components/ui/button"
 
 import {
@@ -9,6 +9,16 @@ import {
   useReactTable,
   getPaginationRowModel,
 } from "@tanstack/react-table"
+
+import {
+    Pagination,
+    PaginationContent,
+    PaginationEllipsis,
+    PaginationItem,
+    PaginationLink,
+    PaginationNext,
+    PaginationPrevious,
+  } from "@/components/ui/pagination"
 
 import {
   Table,
@@ -34,6 +44,7 @@ export function DataTable<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
   })
+  
 
   return (
     <div>
@@ -81,24 +92,9 @@ export function DataTable<TData, TValue>({
         </TableBody>
       </Table>
     </div>
-    <div className="flex items-center justify-end space-x-2 py-4">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Previous
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          Next
-        </Button>
-      </div>
+    <div className=' mt-2'>
+    <DataTablePagination table={table} />
+    </div>
     </div>
   )
 }
